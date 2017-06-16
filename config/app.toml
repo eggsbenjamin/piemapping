@@ -1,0 +1,27 @@
+[common]
+name = "piemapping"
+
+[common.queries]
+journeysByDriverAvailability = """
+SELECT 
+j.id, j.departure_location, j.arrival_location,
+j.departure_time, j.arrival_time
+FROM drivers AS d 
+INNER JOIN journeys AS j 
+ON d.available_from <= j.departure_time 
+AND d.available_till >= j.arrival_time 
+WHERE d.id = ?;
+"""
+
+[development]
+protocol = "http"
+host = "localhost"
+port = "3030"
+
+[development.db]
+type = "mysql"
+host = "localhost"
+port = "3306"
+name = "pie_test"
+
+

@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ROUTE_1_ID",
+    "departure_location": "London",
+    "arrival_location": "Brighton",
+    "departure_time": "2016-03-11 15:00:00",
+    "arrival_time": "2016-03-11 17:00:00"
+  },
+  {
+    "id": "ROUTE_4_ID",
+    "departure_location": "Manchester",
+    "arrival_location": "London",
+    "departure_time": "2016-03-11 14:00:00",
+    "arrival_time": "2016-03-11 18:00:00"
+  },
+  {
+    "id": "ROUTE_5_ID",
+    "departure_location": "London",
+    "arrival_location": "Birmingham",
+    "departure_time": "2016-03-11 12:00:00",
+    "arrival_time": "2016-03-11 15:00:00"
+  }
+]

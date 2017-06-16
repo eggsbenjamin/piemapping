@@ -1,0 +1,49 @@
+Write a go service to handle the following request. The service should serve these requests through a HTTP API.
+
+Req 1: Fetch all the journeys that a given driver is available for (his availability must cover the whole journey)
+
+Req 2: Fetch all the journeys that start at X and overlap with a given time range
+
+Please provide tests, docker deployment, and explanations of your choice / implementations details.
+
+===============================================
+
+##  Method
+
+1.) Write system test
+
+2.) Write integration test
+
+3.) Write unit test and implement (TDD)
+
+===============================================
+
+## Expected
+
+Req 1.)
+
+### DRIVER_1_ID
+
+- ROUTE_1_ID  
+- ROUTE_2_ID  
+- ROUTE_3_ID  
+- ROUTE_4_ID  
+- ROUTE_5_ID  
+- ROUTE_6_ID  
+- ROUTE_8_ID
+- ROUTE_11_ID 
+
+### DRIVER_2_ID
+
+- ROUTE_1_ID 
+- ROUTE_4_ID 
+- ROUTE_5_ID
+
+### DRIVER_3_ID
+
+- ROUTE_1_ID 
+- ROUTE_3_ID 
+- ROUTE_5_ID 
+- ROUTE_8_ID
+
+

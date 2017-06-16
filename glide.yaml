@@ -1,0 +1,5 @@
+package: github.com/eggsbenjamin/piemapping
+import:
+- package: github.com/spf13/viper
+- package: github.com/gorilla/mux
+- package: github.com/go-sql-driver/mysql
