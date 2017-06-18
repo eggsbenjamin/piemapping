@@ -3,64 +3,48 @@ package repository
 import (
 	"database/sql"
 	"fmt"
-	"log"
 
+	"github.com/eggsbenjamin/piemapping/commons"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/spf13/viper"
 )
 
-var (
-	env string
-)
-
-func init() {
-	//	config file
-	viper.AddConfigPath("../config")
-	viper.SetConfigName("app")
-	if err := viper.ReadInConfig(); err != nil {
-		panic(err.Error())
+//	construct db querystring
+func getDBQueryString(params map[string]string) (qs string) {
+	for k, v := range params {
+		qs += fmt.Sprintf("%s=%s&", k, v)
 	}
-	//	env vars
-	viper.AutomaticEnv()
-	prefix := viper.GetString("common.name")
-	viper.SetEnvPrefix(prefix)
-	env = viper.GetString("env")
-	//	logging
-	log.SetPrefix("[Info]")
+	return
 }
 
-//	assemble components and construct the db connection string
-func getConnectionString() string {
-	DBHost := viper.GetString(fmt.Sprintf("%s.db.host", env))
-	DBPort := viper.GetString(fmt.Sprintf("%s.db.port", env))
-	DBName := viper.GetString(fmt.Sprintf("%s.db.name", env))
-	DBUser := viper.GetString("db_user")
-	DBPwd := viper.GetString("db_password")
+//	construct db connection string
+func getConnectionString(params map[string]string) string {
 	return fmt.Sprintf(
-		"%s:%s@tcp(%s:%s)/%s",
-		DBUser,
-		DBPwd,
-		DBHost,
-		DBPort,
-		DBName,
+		"%s:%s@tcp(%s:%s)/%s?%s",
+		viper.GetString("db_user"),
+		viper.GetString("db_password"),
+		viper.GetString("db_host"),
+		viper.GetString("db_port"),
+		viper.GetString("db_name"),
+		getDBQueryString(params),
 	)
 }
 
 //	connects to the db and returns the connection object.
 //	this function panics rather than errors due it's criticality.
-func NewConnection() (DB *sql.DB) {
+func NewConnection(log commons.LevelledLogWriter, params map[string]string) (DB *sql.DB) {
 	var (
 		err     error
-		DBType  = viper.GetString(fmt.Sprintf("%s.db.type", env))
-		connStr = getConnectionString()
+		DBType  = viper.GetString("db_type")
+		connStr = getConnectionString(params)
 	)
-	log.Println("Connecting to DB...")
+	log.Info("Connecting to DB...")
 	if DB, err = sql.Open(DBType, connStr); err != nil {
 		panic(err.Error())
 	}
-	if err := DB.Ping(); err != nil {
+	if err = DB.Ping(); err != nil {
 		panic(err.Error())
 	}
-	log.Println("Successfully Connected to DB...")
+	log.Info("Successfully Connected to DB.")
 	return
 }

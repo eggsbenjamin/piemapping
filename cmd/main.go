@@ -1,18 +1,27 @@
 package main
 
 import (
-	"log"
-	"net/http"
-
-	"github.com/gorilla/mux"
+	"github.com/eggsbenjamin/piemapping/commons"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
-func main() {
-	r := mux.NewRouter()
-	srv := &http.Server{
-		Handler: r,
-		Addr:    "localhost:3030",
-	}
+var logr commons.LevelledLogWriter
 
-	log.Fatal(srv.ListenAndServe())
+func init() {
+	viper.AutomaticEnv()
+	viper.SetEnvPrefix("piemapping")
+	logs := viper.GetBool("logging")
+	if logs == true {
+		logr = commons.NewLogger("Piemapping", 1)
+		return
+	}
+	logr = &commons.NoopLogger{}
+}
+
+func main() {
+	cmd := &cobra.Command{Use: "piemapping"}
+	cmd.AddCommand(migrate())
+	cmd.AddCommand(run())
+	cmd.Execute()
 }

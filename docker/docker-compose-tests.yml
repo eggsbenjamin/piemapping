@@ -1,0 +1,19 @@
+version: '2'
+services:
+  piemapping:
+    extends:
+      file: docker-compose.yml
+      service: 'piemapping'
+    depends_on:
+      - mysql
+    env_file: piemapping.env
+    command: >
+      bash -c " \
+        make build && \
+        make migrate_up && \ 
+        make test
+      "
+  mysql:
+    extends: 
+      file: docker-compose-mysql.yml
+      service: mysql

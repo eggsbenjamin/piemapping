@@ -17,9 +17,9 @@ var _ = Describe("Journey Repository", func() {
 	var _ = Describe("GetByDriverAvailability", func() {
 		It("should return the correct journeys when found", func() {
 			By("setup")
-			conn := NewConnection()
+			conn := NewConnection(logr, nil)
 			db := NewDBWrapper(conn)
-			jRepo := NewJourneyRepository(db)
+			jRepo := NewJourneyRepository(db, logr)
 			driverId := "DRIVER_2_ID"
 			expected := []*models.Journey{}
 			fixture, err := ioutil.ReadFile("../fixtures/driver_2_journeys.json")

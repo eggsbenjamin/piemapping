@@ -25,7 +25,7 @@ var _ = Describe("Journey Repository", func() {
 				testify.AnythingOfType("string"),
 				testify.AnythingOfType("string"),
 			).Return(nil, mockErr)
-			jRepo := NewJourneyRepository(qryr)
+			jRepo := NewJourneyRepository(qryr, logr)
 
 			By("making call")
 			actual, err := jRepo.GetByDriverAvailability("")
@@ -54,7 +54,7 @@ var _ = Describe("Journey Repository", func() {
 				testify.AnythingOfType("string"),
 				testify.AnythingOfType("string"),
 			).Return(rIt, nil)
-			jRepo := NewJourneyRepository(qryr)
+			jRepo := NewJourneyRepository(qryr, logr)
 
 			By("making call")
 			actual, err := jRepo.GetByDriverAvailability("")
@@ -77,7 +77,7 @@ var _ = Describe("Journey Repository", func() {
 				testify.AnythingOfType("string"),
 				testify.AnythingOfType("string"),
 			).Return(rIt, nil)
-			jRepo := NewJourneyRepository(qryr)
+			jRepo := NewJourneyRepository(qryr, logr)
 
 			By("making call")
 			actual, err := jRepo.GetByDriverAvailability("")
@@ -99,7 +99,7 @@ var _ = Describe("Journey Repository", func() {
 				testify.AnythingOfType("string"),
 				testify.AnythingOfType("string"),
 			).Return(rIt, nil)
-			jRepo := NewJourneyRepository(qryr)
+			jRepo := NewJourneyRepository(qryr, logr)
 
 			By("making call")
 			actual, err := jRepo.GetByDriverAvailability("")

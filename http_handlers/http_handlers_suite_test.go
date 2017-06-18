@@ -1,4 +1,4 @@
-package repository_test
+package http_handlers_test
 
 import (
 	"github.com/eggsbenjamin/piemapping/commons"
@@ -22,7 +22,7 @@ var _ = BeforeSuite(func() {
 	logr = &commons.NoopLogger{}
 })
 
-func TestRepository(t *testing.T) {
+func TestHttpHandlers(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Repository Test Suite")
+	RunSpecs(t, "HttpHandlers Suite")
 }
