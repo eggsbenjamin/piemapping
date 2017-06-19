@@ -16,7 +16,9 @@ var _ = BeforeSuite(func() {
 	viper.SetEnvPrefix("piemapping")
 	logs := viper.GetBool("logging")
 	if logs == true {
-		logr = commons.NewLogger("Repository Test", 1)
+		lf := viper.GetString("log_format")
+		df := commons.GetLogLevelId(lf)
+		logr = commons.NewLogger("Repository Test", df)
 		return
 	}
 	logr = &commons.NoopLogger{}

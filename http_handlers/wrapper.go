@@ -45,8 +45,7 @@ func (hw *HandlerWrapper) post(w http.ResponseWriter, r *http.Request) {
 	st := r.Context().Value("start").(time.Time)
 	dur := time.Since(st).Seconds()
 	hw.log.Infof(
-		"Response sent: %d %fs | %s %s %s",
-		1,
+		"Response sent: %fs | %s %s %s",
 		dur,
 		r.Method,
 		r.URL,

@@ -9,10 +9,9 @@ import (
 
 //	send a 500 with a generic message
 func serverError(w http.ResponseWriter, r *http.Request) {
-	status := http.StatusInternalServerError
 	body := `{ "message": "internal server error" }`
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(status)
+	w.WriteHeader(http.StatusInternalServerError)
 	fmt.Fprintf(w, body)
 }
 

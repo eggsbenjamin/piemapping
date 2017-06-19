@@ -6,6 +6,13 @@ import (
 	"github.com/spf13/viper"
 )
 
+const (
+	Ldate = 1 << iota
+	Ltime
+	Lmicroseconds
+	Llongfile
+)
+
 var logr commons.LevelledLogWriter
 
 func init() {
@@ -13,7 +20,9 @@ func init() {
 	viper.SetEnvPrefix("piemapping")
 	logs := viper.GetBool("logging")
 	if logs == true {
-		logr = commons.NewLogger("Piemapping", 1)
+		lf := viper.GetString("log_format")
+		df := commons.GetLogLevelId(lf)
+		logr = commons.NewLogger("Piemapping", df)
 		return
 	}
 	logr = &commons.NoopLogger{}

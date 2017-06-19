@@ -6,6 +6,13 @@ import (
 	"os"
 )
 
+const (
+	Ldate = 1 << iota
+	Ltime
+	Lmicroseconds
+	Llongfile
+)
+
 type LevelledLogWriter interface {
 	Info(...interface{})
 	Infof(string, ...interface{})
@@ -55,3 +62,17 @@ func (l *NoopLogger) Infof(f string, v ...interface{}) {}
 func (l *NoopLogger) Error(v ...interface{}) {}
 
 func (l *NoopLogger) Errorf(f string, v ...interface{}) {}
+
+//	gets the id associated with the different log date/time formats (https://golang.org/src/log/log.go?s=2383:2675#L27)
+func GetLogLevelId(f string) int {
+	lvls := map[string]int{
+		"Ldate":         1,
+		"Ltime":         2,
+		"Lmicroseconds": 3,
+		"Llongfile":     4,
+		"Lshortfile":    5,
+		"LUTC":          6,
+		"LstdFlags":     7,
+	}
+	return lvls[f]
+}

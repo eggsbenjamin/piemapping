@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -8,6 +9,7 @@ import (
 	"github.com/eggsbenjamin/piemapping/repository"
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 //	'run' command to spin up server
@@ -17,14 +19,26 @@ func run() *cobra.Command {
 		Short: "Run",
 		Run: func(cmd *cobra.Command, args []string) {
 			r := mux.NewRouter()
-			wrapr := http_handlers.NewHandlerWrapper(logr)
 			conn := repository.NewConnection(logr, nil)
 			defer conn.Close()
 			db := repository.NewDBWrapper(conn)
 			jRepo := repository.NewJourneyRepository(db, logr)
 			http_handlers.Register(r, logr, jRepo)
-			http.Handle("/", wrapr.Init(r))
-			log.Fatal(http.ListenAndServe(":3030", nil))
+			initServer(r)
 		},
 	}
+}
+
+//	initialise the server
+func initServer(r *mux.Router) {
+	wrapr := http_handlers.NewHandlerWrapper(logr)
+	port := viper.GetString("port")
+	addr := fmt.Sprintf(":%s", port)
+	hdlr := wrapr.Init(r)
+	srv := &http.Server{
+		Addr:    addr,
+		Handler: hdlr,
+	}
+	logr.Infof("Server listening on port: '%s'", port)
+	log.Fatal(srv.ListenAndServe())
 }
