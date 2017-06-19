@@ -8,7 +8,7 @@
 
 ## Setup
 
-`glide install`
+`make install`
 
 ## Run
 
@@ -18,7 +18,7 @@ If you want to run the service locally you can `export` the variables in `docker
 ```
 $ make migrate_up
 
-$ make docker build
+$ make build
 
 $ make docker run
 ```
