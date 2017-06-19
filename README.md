@@ -2,9 +2,9 @@
 
 ## Dependencies
 
-`go (1.8 used for dev)`
-`glide`
-`docker`
+- go (1.8 used for dev)
+- glide
+- docker
 
 ## Setup
 
