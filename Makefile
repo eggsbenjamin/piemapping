@@ -11,13 +11,13 @@ test:
 	@make unit_tests && make integration_tests && make system_tests
 
 unit_tests:
-	@go test -v ./repository/... ./http_handlers/... -tags=unit
+	@PIEMAPPING_LOGGING=false go test -v ./repository/... ./http_handlers/... -tags=unit
 
 integration_tests:
-	@go test -v ./repository/... -tags=integration
+	@PIEMAPPING_LOGGING=false go test -v ./repository/... -tags=integration
 
 system_tests:
-	@go test -v ./systemtest/...
+	@PIEMAPPING_LOGGING=false go test -v ./systemtest/...
 
 docker_test:
 	@docker-compose -f docker/docker-compose-tests.yml -p piemapping rm -v -f

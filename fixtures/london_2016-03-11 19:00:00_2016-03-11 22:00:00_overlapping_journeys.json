@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ROUTE_11_ID",
+    "departure_location": "London",
+    "arrival_location": "Birmingham",
+    "departure_time": "2016-03-11 20:00:00",
+    "arrival_time": "2016-03-11 23:00:00"
+  },
+  {
+    "id": "ROUTE_9_ID",
+    "departure_location": "London",
+    "arrival_location": "Manchester",
+    "departure_time": "2016-03-11 22:00:00",
+    "arrival_time": "2016-03-12 02:00:00"
+  }
+]

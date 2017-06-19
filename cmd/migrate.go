@@ -41,6 +41,7 @@ func up() *cobra.Command {
 				conn   = repository.NewConnection(logr, params)
 				sql    = string(raw)
 			)
+			defer conn.Close()
 			if _, err = conn.Query(sql); err != nil {
 				panic(err.Error())
 			}

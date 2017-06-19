@@ -19,6 +19,7 @@ func run() *cobra.Command {
 			r := mux.NewRouter()
 			wrapr := http_handlers.NewHandlerWrapper(logr)
 			conn := repository.NewConnection(logr, nil)
+			defer conn.Close()
 			db := repository.NewDBWrapper(conn)
 			jRepo := repository.NewJourneyRepository(db, logr)
 			http_handlers.Register(r, logr, jRepo)
