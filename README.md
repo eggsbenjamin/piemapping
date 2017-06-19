@@ -15,10 +15,13 @@
 `make docker_tests` - build the cotainer and run all tests in a dev container
 
 If you want to run the service locally you can `export` the variables in `docker/piemapping.dev.env` and `docker/mysql.env`, altering them to point to your local mysql instance, and then run:
-  - `make migrate_up`
-  - `make docker build`
-  - `make docker run`
+```
+$ make migrate_up
 
+$ make docker build
+
+$ make docker run
+```
 ## Deployment
 
 `make prod_build_container` - run tests in the dev container and the build the prod image
@@ -31,6 +34,8 @@ Good examples of this are...
   - the service wide logger than can be turned on and off with the environment variable `PIEMAPPING_LOGGING`
   - the service wide logger can be configured to print a different date format with the environment variable `PIEMAPPING_LOG_FORMAT`
   - the mocks used in the various unit tests which are injected into their dependent components e.g. the `JourneyRepositoy` being injected into the http handlers.
+
+## Method
 
 When developing I...
   - ran the tests inside a container to get the environment as close to production as possible.
