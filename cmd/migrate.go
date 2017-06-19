@@ -10,13 +10,7 @@ import (
 
 //	base migrate command
 func migrate() (cmd *cobra.Command) {
-	cmd = &cobra.Command{
-		Use:   "migrate",
-		Short: "Migrate",
-		Run: func(cmd *cobra.Command, args []string) {
-			logr.Info("Migrating...")
-		},
-	}
+	cmd = &cobra.Command{Use: "migrate"}
 	cmd.AddCommand(up())
 	return
 }
@@ -27,6 +21,7 @@ func up() *cobra.Command {
 		Use:   "up",
 		Short: "Up",
 		Run: func(cmd *cobra.Command, args []string) {
+			logr.Info("Migrating...")
 			var (
 				raw  []byte
 				err  error
@@ -35,13 +30,13 @@ func up() *cobra.Command {
 			if raw, err = ioutil.ReadFile(path); err != nil {
 				panic(err.Error())
 			}
-			logr.Infof("Executing script '%s'...", path)
 			var (
 				params = map[string]string{"multiStatements": "true"}
 				conn   = repository.NewConnection(logr, params)
 				sql    = string(raw)
 			)
 			defer conn.Close()
+			logr.Infof("Executing script '%s'...", path)
 			if _, err = conn.Query(sql); err != nil {
 				panic(err.Error())
 			}
