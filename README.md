@@ -20,7 +20,7 @@ $ make migrate_up
 
 $ make build
 
-$ make docker run
+$ make run
 ```
 ## Deployment
 
